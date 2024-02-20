@@ -1,0 +1,9 @@
+test/
+hbs/
+artifacts/
+cache/
+deploy/
+tasks/
+types/**.ts
+!types/**.d.ts
+.env
