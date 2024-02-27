@@ -22,10 +22,16 @@ contract TroveState {
 		uint256 TCR;
 		uint256 price;
 		uint256 maxCap;
-		uint256 totalUSDMinted;
+		uint256 entireSystemDebt;
+		uint256 entireSystemColl;
+		uint256 redemptionBootstrap;
+		uint256 redemptionRateWithDecay;
+		uint256 borrowingRateWithDecay;
+		uint256 troveStatus;
+		uint256 surplusBalances;
 		uint256 spStaked;
 		uint256 spWETHGains;
-		uint256 spEsZebraGains;
+		uint256 spEsPropelGains;
 	}
 
 	constructor(IBorrowerOperations _bo, ITroveManager _tm, IStabilityPool _sp) {
@@ -37,16 +43,24 @@ contract TroveState {
 	function getState(address _borrower) public returns (State memory state) {
 		(state.coll, state.debt) = tm.getTroveCollAndDebt(_borrower);
 		state.interest = tm.getTroveInterest(_borrower, state.debt);
+		state.maxCap = tm.maxSystemDebt();
 		state.MCR = tm.MCR();
 		state.CCR = tm.CCR();
 		state.TCR = bo.getTCR();
 		state.price = tm.fetchPrice();
-		state.totalUSDMinted = tm.getEntireSystemDebt();
+		state.ICR = tm.getCurrentICR(_borrower,state.price);
+		state.entireSystemDebt = tm.getEntireSystemDebt();
+		state.entireSystemColl = tm.getEntireSystemColl();
+		state.redemptionBootstrap = tm.systemDeploymentTime() + tm.BOOTSTRAP_PERIOD();
+		state.redemptionRateWithDecay = tm.getRedemptionRateWithDecay();
+		state.borrowingRateWithDecay = tm.getBorrowingRateWithDecay();
+		state.troveStatus = tm.getTroveStatus(_borrower);
+		state.surplusBalances = tm.surplusBalances(_borrower);
 		state.spStaked = sp.getTotalZebraUSDDeposits();
 		uint256[] memory collGains = sp.getDepositorCollateralGain(_borrower);
 		if (collGains.length > 0) {
 			state.spWETHGains = collGains[0];
 		}
-		state.spEsZebraGains = sp.claimableReward(_borrower);
+		state.spEsPropelGains = sp.claimableReward(_borrower);
 	}
 }
