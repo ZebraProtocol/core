@@ -309,7 +309,7 @@ contract BorrowerOperations is IBorrowerOperations, ZebraBase, ZebraOwnable, Del
 		 * - Pure collateral top-up
 		 * - Pure debt repayment
 		 * - Collateral top-up with debt repayment
-		 * - A debt increase combined with a collateral top-up which makes the ICR >= 150% and improves the ICR (and by extension improves the TCR).
+		 * - A debt increase combined with a collateral top-up which makes the ICR >= 200% and improves the ICR (and by extension improves the TCR).
 		 *
 		 * In Normal Mode, ensure:
 		 *
