@@ -28,7 +28,7 @@ contract ZebraUSD is ERC20Burnable, ERC20Permit, ERC20FlashMint {
 
 	mapping(address => bool) public troveManager;
 
-	constructor(IZebraCore _zebraCore, address _stabilityPoolAddress, address _borrowerOperationsAddress, address _factory, address _gasPool, uint256 _gasCompensation) ERC20("Zebra USD", "zUSD") ERC20Permit("Zebra USD") {
+	constructor(IZebraCore _zebraCore, address _stabilityPoolAddress, address _borrowerOperationsAddress, address _factory, address _gasPool, uint256 _gasCompensation) ERC20("Zebra USD", "zbrUSD") ERC20Permit("Zebra USD") {
 		stabilityPoolAddress = _stabilityPoolAddress;
 		zebraCore = _zebraCore;
 		borrowerOperationsAddress = _borrowerOperationsAddress;
