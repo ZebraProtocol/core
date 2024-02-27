@@ -2,7 +2,7 @@
 
 pragma solidity 0.8.19;
 
-/// @notice boost for esZebra
+/// @notice boost for esPropel
 abstract contract StakingBoost {
 	struct LockSetting {
 		uint256 duration;
@@ -73,7 +73,9 @@ abstract contract StakingBoost {
 		if (stakes == 0) {
 			return 0;
 		}
-		return (amount * shareOf(user, id)) / stakes;
+		uint256 unit = (amount * shareOf(user, id)) / stakes;
+		uint256 loss = (amount * shareOf(user, id)) - (unit * stakes);
+		return unit + loss;
 	}
 
 	function unlockTime(address user, uint256 id) public view returns (uint256) {
