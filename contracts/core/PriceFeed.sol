@@ -59,13 +59,11 @@ contract PriceFeed is ZebraOwnable {
 	uint256 public constant TARGET_DIGITS = 18;
 
 	// Responses are considered stale this many seconds after the oracle's heartbeat
-	uint256 public constant RESPONSE_TIMEOUT_BUFFER = 1 hours;
+	uint256 public constant RESPONSE_TIMEOUT_BUFFER = 0 hours;
 
-	// Maximum deviation allowed between two consecutive Chainlink oracle prices. 18-digit precision.
-	uint256 public constant MAX_PRICE_DEVIATION_FROM_PREVIOUS_ROUND = 5e17; // 50%
-	bytes32 public constant ZetaUSDFEED = 0xb70656181007f487e392bf0d92e55358e9f0da5da6531c7c4ce7828aa11277fe;
+	bytes32 public constant ETHUSDFEED = 0xb70656181007f487e392bf0d92e55358e9f0da5da6531c7c4ce7828aa11277fe;
+
 	// State ------------------------------------------------------------------------------------------------------------
-
 	mapping(address => OracleRecord) public oracleRecords;
 	mapping(address => PriceRecord) public priceRecords;
 
@@ -121,7 +119,11 @@ contract PriceFeed is ZebraOwnable {
 		OracleRecord storage oracle = oracleRecords[_token];
 
 		FeedResponse memory currResponse = _fetchFeedResponses(oracle.pyth);
-		if (_isPriceStale(priceRecord.timestamp, oracle.heartbeat)) {
+		if (!_isFeedWorking(currResponse)) {
+			revert PriceFeed__InvalidFeedResponseError(_token);
+		}
+
+		if (_isPriceStale(currResponse.publishTime, oracle.heartbeat)) {
 			revert PriceFeed__FeedFrozenError(_token);
 		}
 
@@ -149,11 +151,6 @@ contract PriceFeed is ZebraOwnable {
 			}
 			return priceRecord.scaledPrice;
 		}
-	}
-
-	function _calcEthPrice(uint256 ethAmount) internal returns (uint256) {
-		uint256 ethPrice = fetchPrice(address(0));
-		return (ethPrice * ethAmount) / 1 ether;
 	}
 
 	function _fetchFeedResponses(IPyth oracle) internal view returns (FeedResponse memory currResponse) {
@@ -195,7 +192,7 @@ contract PriceFeed is ZebraOwnable {
 	}
 
 	function _fetchCurrentFeedResponse(IPyth _priceAggregator) internal view returns (FeedResponse memory response) {
-		try _priceAggregator.getPriceUnsafe(ZetaUSDFEED) returns (IPyth.Price memory price) {
+		try _priceAggregator.getPriceUnsafe(ETHUSDFEED) returns (IPyth.Price memory price) {
 			response.price = price.price;
 			response.conf = price.conf;
 			response.expo = price.expo;
