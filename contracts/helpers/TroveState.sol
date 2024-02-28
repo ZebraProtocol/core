@@ -31,7 +31,7 @@ contract TroveState {
 		uint256 surplusBalances;
 		uint256 spStaked;
 		uint256 spZETAGains;
-		uint256 spEsPropelGains;
+		uint256 spEsZebraGains;
 	}
 
 	constructor(IBorrowerOperations _bo, ITroveManager _tm, IStabilityPool _sp) {
@@ -61,6 +61,6 @@ contract TroveState {
 		if (collGains.length > 0) {
 			state.spZETAGains = collGains[0];
 		}
-		state.spEsPropelGains = sp.claimableReward(_borrower);
+		state.spEsZebraGains = sp.claimableReward(_borrower);
 	}
 }
