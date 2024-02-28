@@ -2,7 +2,7 @@
 
 pragma solidity 0.8.19;
 
-/// @notice boost for esPropel
+/// @notice boost for esZebra
 abstract contract StakingBoost {
 	struct LockSetting {
 		uint256 duration;
