@@ -73,9 +73,7 @@ abstract contract StakingBoost {
 		if (stakes == 0) {
 			return 0;
 		}
-		uint256 unit = (amount * shareOf(user, id)) / stakes;
-		uint256 loss = (amount * shareOf(user, id)) - (unit * stakes);
-		return unit + loss;
+		return (amount * shareOf(user, id)) / stakes;
 	}
 
 	function unlockTime(address user, uint256 id) public view returns (uint256) {

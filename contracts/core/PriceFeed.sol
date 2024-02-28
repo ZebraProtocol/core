@@ -13,14 +13,13 @@ import "../dependencies/console.sol";
     @notice Based on Gravita's PriceFeed:
             https://github.com/Gravita-Protocol/Gravita-SmartContracts/blob/9b69d555f3567622b0f84df8c7f1bb5cd9323573/contracts/PriceFeed.sol
 
-            Zebra's implementation additionally caches price values within a block and incorporates exchange rate settings for derivative tokens (e.g. stETH -> wstETH).
+            Zebra's implementation additionally caches price values within a block and incorporates exchange rate settings for derivative tokens
  */
 contract PriceFeed is ZebraOwnable {
 	struct OracleRecord {
 		IPyth pyth;
 		uint32 decimals;
 		uint32 heartbeat;
-		bool isFeedWorking;
 	}
 
 	struct PriceRecord {
@@ -44,7 +43,6 @@ contract PriceFeed is ZebraOwnable {
 
 	error PriceFeed__InvalidFeedResponseError(address token);
 	error PriceFeed__FeedFrozenError(address token);
-	error PriceFeed__UnknownFeedError(address token);
 	error PriceFeed__HeartbeatOutOfBoundsError();
 
 	// Events ---------------------------------------------------------------------------------------------------------
@@ -61,7 +59,7 @@ contract PriceFeed is ZebraOwnable {
 	// Responses are considered stale this many seconds after the oracle's heartbeat
 	uint256 public constant RESPONSE_TIMEOUT_BUFFER = 0 hours;
 
-	bytes32 public constant ETHUSDFEED = 0xb70656181007f487e392bf0d92e55358e9f0da5da6531c7c4ce7828aa11277fe;
+	bytes32 public constant ZETAUSDFEED = 0xb70656181007f487e392bf0d92e55358e9f0da5da6531c7c4ce7828aa11277fe;
 
 	// State ------------------------------------------------------------------------------------------------------------
 	mapping(address => OracleRecord) public oracleRecords;
@@ -81,23 +79,12 @@ contract PriceFeed is ZebraOwnable {
 		if (_heartbeat > 86400) revert PriceFeed__HeartbeatOutOfBoundsError();
 		IPyth newFeed = IPyth(_pyth);
 		FeedResponse memory currResponse = _fetchFeedResponses(newFeed);
-		if (!_isFeedWorking(currResponse)) {
-			revert PriceFeed__InvalidFeedResponseError(_token);
-		}
-		if (_isPriceStale(currResponse.publishTime, _heartbeat)) {
-			revert PriceFeed__FeedFrozenError(_token);
-		}
-
-		OracleRecord memory record = OracleRecord({ pyth: newFeed, decimals: uint32(-currResponse.expo), heartbeat: _heartbeat, isFeedWorking: true });
-
+		OracleRecord memory record = OracleRecord({ pyth: newFeed, decimals: uint32(-currResponse.expo), heartbeat: _heartbeat});
 		oracleRecords[_token] = record;
-		PriceRecord memory _priceRecord = priceRecords[_token];
 
-		_processFeedResponses(_token, record, currResponse, _priceRecord);
+		_processFeedResponses(_token, record, currResponse);
 		emit NewOracleRegistered(_token, _pyth);
 	}
-
-	// Public functions -------------------------------------------------------------------------------------------------
 
 	/**
         @notice Get the latest price returned from the oracle
@@ -112,45 +99,25 @@ contract PriceFeed is ZebraOwnable {
 			// We short-circuit only if the price was already correct in the current block
 			return priceRecord.scaledPrice;
 		}
-		if (priceRecord.lastUpdated == 0) {
-			revert PriceFeed__UnknownFeedError(_token);
-		}
 
 		OracleRecord storage oracle = oracleRecords[_token];
-
 		FeedResponse memory currResponse = _fetchFeedResponses(oracle.pyth);
-		if (!_isFeedWorking(currResponse)) {
-			revert PriceFeed__InvalidFeedResponseError(_token);
-		}
-
-		if (_isPriceStale(currResponse.publishTime, oracle.heartbeat)) {
-			revert PriceFeed__FeedFrozenError(_token);
-		}
-
-		return _processFeedResponses(_token, oracle, currResponse, priceRecord);
+		return _processFeedResponses(_token, oracle, currResponse);
 	}
 
 	// Internal functions -----------------------------------------------------------------------------------------------
 
-	function _processFeedResponses(address _token, OracleRecord memory oracle, FeedResponse memory _currResponse, PriceRecord memory priceRecord) internal returns (uint256) {
-		uint32 decimals = oracle.decimals;
-		bool isValidResponse = _isFeedWorking(_currResponse) && !_isPriceStale(_currResponse.publishTime, oracle.heartbeat);
-		if (isValidResponse) {
-			uint256 scaledPrice = _scalePriceByDigits(_currResponse.price, decimals);
-			if (!oracle.isFeedWorking) {
-				_updateFeedStatus(_token, oracle, true);
-			}
-			_storePrice(_token, scaledPrice, _currResponse.publishTime);
-			return scaledPrice;
-		} else {
-			if (oracle.isFeedWorking) {
-				_updateFeedStatus(_token, oracle, false);
-			}
-			if (_isPriceStale(priceRecord.timestamp, oracle.heartbeat)) {
-				revert PriceFeed__FeedFrozenError(_token);
-			}
-			return priceRecord.scaledPrice;
+	function _processFeedResponses(address _token, OracleRecord memory oracle, FeedResponse memory _currResponse) internal returns (uint256) {
+		if (!_isFeedWorking(_currResponse)) {
+			revert PriceFeed__InvalidFeedResponseError(_token);
 		}
+		if (_isPriceStale(_currResponse.publishTime, oracle.heartbeat)) {
+			revert PriceFeed__FeedFrozenError(_token);
+		}
+		uint32 decimals = oracle.decimals;
+		uint256 scaledPrice = _scalePriceByDigits(_currResponse.price, decimals);
+		_storePrice(_token, scaledPrice, _currResponse.publishTime);
+		return scaledPrice;
 	}
 
 	function _fetchFeedResponses(IPyth oracle) internal view returns (FeedResponse memory currResponse) {
@@ -166,7 +133,7 @@ contract PriceFeed is ZebraOwnable {
 	}
 
 	function _isValidResponse(FeedResponse memory _response) internal view returns (bool) {
-		return (_response.success) && (_response.publishTime != 0) && (_response.publishTime <= block.timestamp) && (_response.price != 0);
+		return (_response.success) && (_response.publishTime > 0) && (_response.publishTime <= block.timestamp) && (_response.price > 0);
 	}
 
 	function _scalePriceByDigits(int64 _price, uint256 _answerDigits) internal pure returns (uint256) {
@@ -181,25 +148,19 @@ contract PriceFeed is ZebraOwnable {
 		}
 	}
 
-	function _updateFeedStatus(address _token, OracleRecord memory _oracle, bool _isWorking) internal {
-		oracleRecords[_token].isFeedWorking = _isWorking;
-		emit PriceFeedStatusUpdated(_token, address(_oracle.pyth), _isWorking);
-	}
-
 	function _storePrice(address _token, uint256 _price, uint256 _timestamp) internal {
 		priceRecords[_token] = PriceRecord({ scaledPrice: uint96(_price), timestamp: uint32(_timestamp), lastUpdated: uint32(block.timestamp) });
 		emit PriceRecordUpdated(_token, _price);
 	}
 
 	function _fetchCurrentFeedResponse(IPyth _priceAggregator) internal view returns (FeedResponse memory response) {
-		try _priceAggregator.getPriceUnsafe(ETHUSDFEED) returns (IPyth.Price memory price) {
+		try _priceAggregator.getPriceUnsafe(ZETAUSDFEED) returns (IPyth.Price memory price) {
 			response.price = price.price;
 			response.conf = price.conf;
 			response.expo = price.expo;
 			response.publishTime = price.publishTime;
 			response.success = true;
 		} catch {
-			// If call to Chainlink aggregator reverts, return a zero response with success = false
 			return response;
 		}
 	}

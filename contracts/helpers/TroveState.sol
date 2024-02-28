@@ -30,7 +30,7 @@ contract TroveState {
 		uint256 troveStatus;
 		uint256 surplusBalances;
 		uint256 spStaked;
-		uint256 spWETHGains;
+		uint256 spZETAGains;
 		uint256 spEsPropelGains;
 	}
 
@@ -59,7 +59,7 @@ contract TroveState {
 		state.spStaked = sp.getTotalZebraUSDDeposits();
 		uint256[] memory collGains = sp.getDepositorCollateralGain(_borrower);
 		if (collGains.length > 0) {
-			state.spWETHGains = collGains[0];
+			state.spZETAGains = collGains[0];
 		}
 		state.spEsPropelGains = sp.claimableReward(_borrower);
 	}

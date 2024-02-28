@@ -12,7 +12,7 @@ contract FeeReceiver is ZebraOwnableUpgradeable {
 	function withdraw(address to, IERC20 coin, uint256 value) external onlyOwner {
 		if (address(coin) == address(0)) {
 			(bool success, ) = to.call{ value: value }("");
-			require(success, "FeeReceiver: withdraw eth failed");
+			require(success, "FeeReceiver: withdraw zeta failed");
 		} else {
 			coin.transfer(to, value);
 		}
