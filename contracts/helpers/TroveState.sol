@@ -9,7 +9,6 @@ import "../interfaces/IStabilityPool.sol";
 
 contract TroveState {
 	IBorrowerOperations public bo;
-	ITroveManager public tm;
 	IStabilityPool public sp;
 
 	struct State {
@@ -30,17 +29,16 @@ contract TroveState {
 		uint256 troveStatus;
 		uint256 surplusBalances;
 		uint256 spStaked;
-		uint256 spZETAGains;
+		uint256[] spCollGains;
 		uint256 spEsZebraGains;
 	}
 
-	constructor(IBorrowerOperations _bo, ITroveManager _tm, IStabilityPool _sp) {
+	constructor(IBorrowerOperations _bo, IStabilityPool _sp) {
 		bo = _bo;
-		tm = _tm;
 		sp = _sp;
 	}
 
-	function getState(address _borrower) public returns (State memory state) {
+	function getState(ITroveManager tm, address _borrower) public returns (State memory state) {
 		(state.coll, state.debt) = tm.getTroveCollAndDebt(_borrower);
 		state.interest = tm.getTroveInterest(_borrower, state.debt);
 		state.maxCap = tm.maxSystemDebt();
@@ -57,10 +55,7 @@ contract TroveState {
 		state.troveStatus = tm.getTroveStatus(_borrower);
 		state.surplusBalances = tm.surplusBalances(_borrower);
 		state.spStaked = sp.getTotalZebraUSDDeposits();
-		uint256[] memory collGains = sp.getDepositorCollateralGain(_borrower);
-		if (collGains.length > 0) {
-			state.spZETAGains = collGains[0];
-		}
+		state.spCollGains = sp.getDepositorCollateralGain(_borrower);
 		state.spEsZebraGains = sp.claimableReward(_borrower);
 	}
 }
