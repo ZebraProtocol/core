@@ -20,6 +20,9 @@ contract PriceFeed is ZebraOwnable {
 		IPyth pyth;
 		uint32 decimals;
 		uint32 heartbeat;
+		address exchangeTarget;
+		uint8 exchangeDecimals;
+		bytes exchangeRateDataWithSig;
 	}
 
 	struct PriceRecord {
@@ -65,21 +68,20 @@ contract PriceFeed is ZebraOwnable {
 	mapping(address => OracleRecord) public oracleRecords;
 	mapping(address => PriceRecord) public priceRecords;
 
-	constructor(IZebraCore _ZebraCore) ZebraOwnable(_ZebraCore) {}
+	constructor(IZebraCore _zebraCore) ZebraOwnable(_zebraCore) {}
 
 	// Admin routines ---------------------------------------------------------------------------------------------------
-
 	/**
         @notice Set the oracle for a specific token
         @param _token Address of the LST to set the oracle for
         @param _pyth Address of the pyth oracle for this LST
         @param _heartbeat Oracle heartbeat, in seconds
      */
-	function setOracle(address _token, address _pyth, uint32 _heartbeat) public onlyOwner {
+	function setOracle(address _token, address _pyth, address exchangeTarget, uint8 exchangeDecimals, bytes memory exchangeRateDataWithSig, uint32 _heartbeat) public onlyOwner {
 		if (_heartbeat > 86400) revert PriceFeed__HeartbeatOutOfBoundsError();
 		IPyth newFeed = IPyth(_pyth);
 		FeedResponse memory currResponse = _fetchFeedResponses(newFeed);
-		OracleRecord memory record = OracleRecord({ pyth: newFeed, decimals: uint32(-currResponse.expo), heartbeat: _heartbeat});
+		OracleRecord memory record = OracleRecord({ pyth: newFeed, exchangeTarget: exchangeTarget, exchangeDecimals: exchangeDecimals, exchangeRateDataWithSig: exchangeRateDataWithSig, decimals: uint32(-currResponse.expo), heartbeat: _heartbeat});
 		oracleRecords[_token] = record;
 
 		_processFeedResponses(_token, record, currResponse);
@@ -105,6 +107,19 @@ contract PriceFeed is ZebraOwnable {
 		return _processFeedResponses(_token, oracle, currResponse);
 	}
 
+	function _exchangeZetaAmount(address exchangeTarget, bytes memory data, uint8 exchangeDecimals) internal view returns(uint256) {
+		(bool success, bytes memory result) = exchangeTarget.staticcall(data);
+		require(success, 'call exchange failed');
+		(uint256 zetaAmount) = abi.decode(result, (uint256));
+		if (exchangeDecimals == TARGET_DIGITS) {
+			return zetaAmount;
+		} else if (exchangeDecimals < TARGET_DIGITS) {
+			return uint256(zetaAmount) * (10 ** (TARGET_DIGITS - exchangeDecimals));
+		} else {
+			return uint256(zetaAmount) / (10 ** (exchangeDecimals - TARGET_DIGITS));
+		}
+	}
+
 	// Internal functions -----------------------------------------------------------------------------------------------
 
 	function _processFeedResponses(address _token, OracleRecord memory oracle, FeedResponse memory _currResponse) internal returns (uint256) {
@@ -116,6 +131,9 @@ contract PriceFeed is ZebraOwnable {
 		}
 		uint32 decimals = oracle.decimals;
 		uint256 scaledPrice = _scalePriceByDigits(_currResponse.price, decimals);
+		if (oracle.exchangeTarget != address(0)) {
+			scaledPrice = _exchangeZetaAmount(oracle.exchangeTarget, oracle.exchangeRateDataWithSig, oracle.exchangeDecimals) * scaledPrice / (10 ** TARGET_DIGITS);
+		}
 		_storePrice(_token, scaledPrice, _currResponse.publishTime);
 		return scaledPrice;
 	}
