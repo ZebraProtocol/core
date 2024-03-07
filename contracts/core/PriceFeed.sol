@@ -109,7 +109,7 @@ contract PriceFeed is ZebraOwnable {
 
 	function _exchangeZetaAmount(address exchangeTarget, bytes memory data, uint8 exchangeDecimals) internal view returns(uint256) {
 		(bool success, bytes memory result) = exchangeTarget.staticcall(data);
-		require(success, 'call exchange failed');
+		require(success, "call exchange failed");
 		(uint256 zetaAmount) = abi.decode(result, (uint256));
 		if (exchangeDecimals == TARGET_DIGITS) {
 			return zetaAmount;
