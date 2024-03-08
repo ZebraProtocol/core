@@ -15,7 +15,7 @@ import { resolve } from 'path'
 const dotenvConfigPath: string = process.env.DOTENV_CONFIG_PATH || './.env'
 dotenvConfig({ path: resolve(__dirname, dotenvConfigPath) })
 
-// import './tasks'
+import './tasks'
 
 const accounts = {
 	mnemonic: process.env.MNEMONIC || 'test test test test test test test test test test test test',
@@ -63,11 +63,11 @@ const config = {
 			timeout: 100000
 		},
 		hardhat: {
-			// forking: {
-			// 	enabled: true,
-			// 	url: process.env.MAINNET,
-			// 	blockNumber: 1841340,
-			// },
+			forking: {
+				enabled: true,
+				url: process.env.MAINNET,
+				blockNumber: 2068913,
+			},
 			accounts,
 			gas: 'auto',
 			gasPrice: 'auto',
@@ -121,13 +121,12 @@ const config = {
 			gasMultiplier: 1.3,
 			timeout: 100000
 		},
-		'blast-sepolia': {
-			url: 'https://sepolia.blast.io',
-			accounts,
-			gasPrice: 1e9,
-		},
 		'zeta-testnet': {
 			url: 'https://zetachain-athens-evm.blockpi.network/v1/rpc/public',
+			accounts
+		},
+		'zeta-mainnet': {
+			url: 'https://zetachain-evm.blockpi.network/v1/rpc/public',
 			accounts
 		}
 	},

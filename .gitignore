@@ -20,7 +20,4 @@ yalc.lock
 tasks/
 types/
 test/
-
 contractsInfo.json
-deployments/hardhat
-deployments/localhost
