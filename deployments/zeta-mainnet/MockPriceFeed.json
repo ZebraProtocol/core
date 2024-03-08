@@ -1,0 +1,101 @@
+{
+  "address": "0xd44aF5eBd3D2ED6dB406456DE7382a7f9cE9751F",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "fetchPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "price",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_price",
+          "type": "uint256"
+        }
+      ],
+      "name": "updatePrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xf8d20e9a53c45b4dfed99303433ad0ffeedee6ec19ed1843e8e928a2c0aab2e4",
+  "receipt": {
+    "to": null,
+    "from": "0xF1658C608708172655A8e70a1624c29F956Ee63D",
+    "contractAddress": "0xd44aF5eBd3D2ED6dB406456DE7382a7f9cE9751F",
+    "transactionIndex": 54,
+    "gasUsed": "132691",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x481862e1cb8f45ce0fb113bdb06d57f5b5f6e1053ebdc43eec0c23d421d3690b",
+    "transactionHash": "0xf8d20e9a53c45b4dfed99303433ad0ffeedee6ec19ed1843e8e928a2c0aab2e4",
+    "logs": [],
+    "blockNumber": 2078801,
+    "cumulativeGasUsed": "13566792",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "1df14a9ede2145d864db7b0244547377",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"fetchPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_price\",\"type\":\"uint256\"}],\"name\":\"updatePrice\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/test/MockPriceFeed.sol\":\"MockPriceFeed\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":2000},\"remappings\":[]},\"sources\":{\"contracts/test/MockPriceFeed.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity 0.8.19;\\n\\ncontract MockPriceFeed {\\n\\tuint256 public price = 1800e18;\\n\\n\\tfunction fetchPrice(address token) public view returns (uint256) {\\n\\t\\treturn price;\\n\\t}\\n\\n\\tfunction updatePrice(uint256 _price) external {\\n\\t\\tprice = _price;\\n\\t}\\n}\\n\",\"keccak256\":\"0x3450f8d1c61cec184c201e8c39dac9130a72bc3392362af2288f4310cf1df5e5\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x6080604052686194049f30f720000060005534801561001d57600080fd5b506101088061002d6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80638d6cc56d146041578063a035b1fe146053578063ace1798e14606d575b600080fd5b6051604c366004607f565b600055565b005b605b60005481565b60405190815260200160405180910390f35b605b60783660046097565b5060005490565b600060208284031215609057600080fd5b5035919050565b60006020828403121560a857600080fd5b813573ffffffffffffffffffffffffffffffffffffffff8116811460cb57600080fd5b939250505056fea2646970667358221220c03a6f5c701f3427ff6760940ae415795838277cc27f483f7e1462d00ec77b5464736f6c63430008130033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b5060043610603c5760003560e01c80638d6cc56d146041578063a035b1fe146053578063ace1798e14606d575b600080fd5b6051604c366004607f565b600055565b005b605b60005481565b60405190815260200160405180910390f35b605b60783660046097565b5060005490565b600060208284031215609057600080fd5b5035919050565b60006020828403121560a857600080fd5b813573ffffffffffffffffffffffffffffffffffffffff8116811460cb57600080fd5b939250505056fea2646970667358221220c03a6f5c701f3427ff6760940ae415795838277cc27f483f7e1462d00ec77b5464736f6c63430008130033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 40629,
+        "contract": "contracts/test/MockPriceFeed.sol:MockPriceFeed",
+        "label": "price",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      }
+    ],
+    "types": {
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
