@@ -6,6 +6,7 @@ import "../interfaces/IBorrowerOperations.sol";
 import "../interfaces/ITroveManager.sol";
 import "../interfaces/ISortedTroves.sol";
 import "../interfaces/IStabilityPool.sol";
+import "../interfaces/IZebraBase.sol";
 
 contract TroveState {
 	IBorrowerOperations public bo;
@@ -19,6 +20,8 @@ contract TroveState {
 		uint256 ICR;
 		uint256 CCR;
 		uint256 TCR;
+		uint256 minNetDebt;
+		uint256 gasCompensation;
 		uint256 price;
 		uint256 maxCap;
 		uint256 entireSystemDebt;
@@ -45,6 +48,8 @@ contract TroveState {
 		state.MCR = tm.MCR();
 		state.CCR = tm.CCR();
 		state.TCR = bo.getTCR();
+		state.minNetDebt = bo.minNetDebt();
+		state.gasCompensation = IZebraBase(address(bo)).DEBT_GAS_COMPENSATION();
 		state.price = tm.fetchPrice();
 		state.ICR = tm.getCurrentICR(_borrower,state.price);
 		state.entireSystemDebt = tm.getEntireSystemDebt();

@@ -1,6 +1,6 @@
 {
 	"name": "@0xzebra/core",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Zebra contracts for typescript",
 	"main": "./types/index.js",
 	"types": "./types/index.ts",
