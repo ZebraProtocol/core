@@ -4,7 +4,8 @@ artifacts/
 exports/
 deploy/
 deployments/localhost
-deployments
+deployments/**/solcInputs
+
 docs/
 coverage*
 .vscode/*

@@ -42,6 +42,11 @@ contract TroveState {
 	}
 
 	function getState(ITroveManager tm, address _borrower) public returns (State memory state) {
+		try tm.fetchPrice() returns(uint256 price) {
+			state.price = price;
+		} catch(bytes memory) {
+			revert("the oracle is down");
+		}
 		(state.coll, state.debt) = tm.getTroveCollAndDebt(_borrower);
 		state.interest = tm.getTroveInterest(_borrower, state.debt);
 		state.maxCap = tm.maxSystemDebt();
@@ -50,7 +55,6 @@ contract TroveState {
 		state.TCR = bo.getTCR();
 		state.minNetDebt = bo.minNetDebt();
 		state.gasCompensation = IZebraBase(address(bo)).DEBT_GAS_COMPENSATION();
-		state.price = tm.fetchPrice();
 		state.ICR = tm.getCurrentICR(_borrower,state.price);
 		state.entireSystemDebt = tm.getEntireSystemDebt();
 		state.entireSystemColl = tm.getEntireSystemColl();
