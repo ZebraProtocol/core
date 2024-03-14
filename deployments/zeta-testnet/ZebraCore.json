@@ -1,0 +1,476 @@
+{
+  "address": "0xD478C3dD7482FF5b1a6D4bcCAfA85Fa405792F24",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_guardian",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_feeReceiver",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "feeReceiver",
+          "type": "address"
+        }
+      ],
+      "name": "FeeReceiverSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "guardian",
+          "type": "address"
+        }
+      ],
+      "name": "GuardianSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oldOwner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "NewOwnerAccepted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "pendingOwner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "deadline",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewOwnerCommitted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "revokedOwner",
+          "type": "address"
+        }
+      ],
+      "name": "NewOwnerRevoked",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [],
+      "name": "Paused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [],
+      "name": "Unpaused",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "OWNERSHIP_TRANSFER_DELAY",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "acceptTransferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "commitTransferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "feeReceiver",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "guardian",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ownershipTransferDeadline",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pendingOwner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "priceFeed",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "revokeTransferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_feeReceiver",
+          "type": "address"
+        }
+      ],
+      "name": "setFeeReceiver",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_guardian",
+          "type": "address"
+        }
+      ],
+      "name": "setGuardian",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "_paused",
+          "type": "bool"
+        }
+      ],
+      "name": "setPaused",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "startTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x19e90f73d385b13d806d7991403bdf043f27ce114d155da28517b244608bc293",
+  "receipt": {
+    "to": null,
+    "from": "0xF1658C608708172655A8e70a1624c29F956Ee63D",
+    "contractAddress": "0xD478C3dD7482FF5b1a6D4bcCAfA85Fa405792F24",
+    "transactionIndex": 1,
+    "gasUsed": "582838",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000008000000000000000084000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000400000000000000100000000000000000000000000",
+    "blockHash": "0x00a7ffa7b55077daeaba4b435dfc079a71e0b386cbda311a881d587d52a941d3",
+    "transactionHash": "0x19e90f73d385b13d806d7991403bdf043f27ce114d155da28517b244608bc293",
+    "logs": [
+      {
+        "transactionIndex": 1,
+        "blockNumber": 4049217,
+        "transactionHash": "0x19e90f73d385b13d806d7991403bdf043f27ce114d155da28517b244608bc293",
+        "address": "0xD478C3dD7482FF5b1a6D4bcCAfA85Fa405792F24",
+        "topics": [
+          "0xe6c09ffe4572dc9ceaa5ddde4ae41befa655d6fdfe8052077af0970f700e942e"
+        ],
+        "data": "0x000000000000000000000000f1658c608708172655a8e70a1624c29f956ee63d",
+        "logIndex": 6,
+        "blockHash": "0x00a7ffa7b55077daeaba4b435dfc079a71e0b386cbda311a881d587d52a941d3"
+      },
+      {
+        "transactionIndex": 1,
+        "blockNumber": 4049217,
+        "transactionHash": "0x19e90f73d385b13d806d7991403bdf043f27ce114d155da28517b244608bc293",
+        "address": "0xD478C3dD7482FF5b1a6D4bcCAfA85Fa405792F24",
+        "topics": [
+          "0xbdf37c276f641820b141429d245add2552b4118c0866e5a78638e3de5ef18d9d"
+        ],
+        "data": "0x000000000000000000000000b5107c9d36be2a8f3db5e62cd4bf1c096b372dcf",
+        "logIndex": 7,
+        "blockHash": "0x00a7ffa7b55077daeaba4b435dfc079a71e0b386cbda311a881d587d52a941d3"
+      }
+    ],
+    "blockNumber": 4049217,
+    "cumulativeGasUsed": "902975",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0xF1658C608708172655A8e70a1624c29F956Ee63D",
+    "0xF1658C608708172655A8e70a1624c29F956Ee63D",
+    "0xb5107c9d36be2a8f3db5e62cd4bf1c096b372dcf"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "b91301f1a84b6c2e358640cd7d231682",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_guardian\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_feeReceiver\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"feeReceiver\",\"type\":\"address\"}],\"name\":\"FeeReceiverSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"guardian\",\"type\":\"address\"}],\"name\":\"GuardianSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldOwner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"NewOwnerAccepted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"pendingOwner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"NewOwnerCommitted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"revokedOwner\",\"type\":\"address\"}],\"name\":\"NewOwnerRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"Unpaused\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"OWNERSHIP_TRANSFER_DELAY\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"acceptTransferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"commitTransferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feeReceiver\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"guardian\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"ownershipTransferDeadline\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"priceFeed\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"revokeTransferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_feeReceiver\",\"type\":\"address\"}],\"name\":\"setFeeReceiver\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_guardian\",\"type\":\"address\"}],\"name\":\"setGuardian\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"_paused\",\"type\":\"bool\"}],\"name\":\"setPaused\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"startTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"setFeeReceiver(address)\":{\"params\":{\"_feeReceiver\":\"Address of the fee's recipient\"}},\"setGuardian(address)\":{\"params\":{\"_guardian\":\"Guardian address\"}},\"setPaused(bool)\":{\"params\":{\"_paused\":\"If true the protocol is paused\"}}},\"title\":\"Zebra ZebraCore\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"setFeeReceiver(address)\":{\"notice\":\"Set the receiver of all fees across the protocol\"},\"setGuardian(address)\":{\"notice\":\"Set the guardian address The guardian can execute some emergency actions\"},\"setPaused(bool)\":{\"notice\":\"Sets the global pause state of the protocol         Pausing is used to mitigate risks in exceptional circumstances         Functionalities affected by pausing are:         - New borrowing is not possible         - New collateral deposits are not possible         - New stability pool deposits are not possible\"}},\"notice\":\"Single source of truth for system-wide values and contract ownership. Ownership of this contract should be the Zebra DAO via `AdminVoting`. Other ownable Zebra contracts inherit their ownership from this contract using `ZebraOwnable`.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/core/ZebraCore.sol\":\"ZebraCore\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":2000},\"remappings\":[]},\"sources\":{\"contracts/core/ZebraCore.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity 0.8.19;\\n\\n/**\\n    @title Zebra ZebraCore\\n    @notice Single source of truth for system-wide values and contract ownership.\\n\\n            Ownership of this contract should be the Zebra DAO via `AdminVoting`.\\n            Other ownable Zebra contracts inherit their ownership from this contract\\n            using `ZebraOwnable`.\\n */\\ncontract ZebraCore {\\n\\taddress public feeReceiver;\\n\\taddress public priceFeed;\\n\\n\\taddress public owner;\\n\\taddress public pendingOwner;\\n\\tuint256 public ownershipTransferDeadline;\\n\\n\\taddress public guardian;\\n\\n\\t// We enforce a three day delay between committing and applying\\n\\t// an ownership change, as a sanity check on a proposed new owner\\n\\t// and to give users time to react in case the act is malicious.\\n\\tuint256 public constant OWNERSHIP_TRANSFER_DELAY = 86400 * 3;\\n\\n\\t// System-wide pause. When true, disables trove adjustments across all collaterals.\\n\\tbool public paused;\\n\\n\\t// System-wide start time, rounded down the nearest epoch week.\\n\\t// Other contracts that require access to this should inherit `SystemStart`.\\n\\tuint256 public immutable startTime;\\n\\n\\tevent NewOwnerCommitted(address owner, address pendingOwner, uint256 deadline);\\n\\n\\tevent NewOwnerAccepted(address oldOwner, address owner);\\n\\n\\tevent NewOwnerRevoked(address owner, address revokedOwner);\\n\\n\\tevent FeeReceiverSet(address feeReceiver);\\n\\n\\tevent GuardianSet(address guardian);\\n\\n\\tevent Paused();\\n\\n\\tevent Unpaused();\\n\\n\\tconstructor(address _owner, address _guardian, address _feeReceiver) {\\n\\t\\towner = _owner;\\n\\t\\tstartTime = (block.timestamp / 1 weeks) * 1 weeks;\\n\\t\\tguardian = _guardian;\\n\\t\\tfeeReceiver = _feeReceiver;\\n\\t\\temit GuardianSet(_guardian);\\n\\t\\temit FeeReceiverSet(_feeReceiver);\\n\\t}\\n\\n\\tmodifier onlyOwner() {\\n\\t\\trequire(msg.sender == owner, \\\"Only owner\\\");\\n\\t\\t_;\\n\\t}\\n\\n\\t/**\\n\\t * @notice Set the receiver of all fees across the protocol\\n\\t * @param _feeReceiver Address of the fee's recipient\\n\\t */\\n\\tfunction setFeeReceiver(address _feeReceiver) external onlyOwner {\\n\\t\\tfeeReceiver = _feeReceiver;\\n\\t\\temit FeeReceiverSet(_feeReceiver);\\n\\t}\\n\\n\\t/**\\n     * @notice Set the guardian address\\n               The guardian can execute some emergency actions\\n     * @param _guardian Guardian address\\n     */\\n\\tfunction setGuardian(address _guardian) external onlyOwner {\\n\\t\\tguardian = _guardian;\\n\\t\\temit GuardianSet(_guardian);\\n\\t}\\n\\n\\t/**\\n\\t * @notice Sets the global pause state of the protocol\\n\\t *         Pausing is used to mitigate risks in exceptional circumstances\\n\\t *         Functionalities affected by pausing are:\\n\\t *         - New borrowing is not possible\\n\\t *         - New collateral deposits are not possible\\n\\t *         - New stability pool deposits are not possible\\n\\t * @param _paused If true the protocol is paused\\n\\t */\\n\\tfunction setPaused(bool _paused) external {\\n\\t\\trequire((_paused && msg.sender == guardian) || msg.sender == owner, \\\"Unauthorized\\\");\\n\\t\\tpaused = _paused;\\n\\t\\tif (_paused) {\\n\\t\\t\\temit Paused();\\n\\t\\t} else {\\n\\t\\t\\temit Unpaused();\\n\\t\\t}\\n\\t}\\n\\n\\tfunction commitTransferOwnership(address newOwner) external onlyOwner {\\n\\t\\tpendingOwner = newOwner;\\n\\t\\townershipTransferDeadline = block.timestamp + OWNERSHIP_TRANSFER_DELAY;\\n\\n\\t\\temit NewOwnerCommitted(msg.sender, newOwner, block.timestamp + OWNERSHIP_TRANSFER_DELAY);\\n\\t}\\n\\n\\tfunction acceptTransferOwnership() external {\\n\\t\\trequire(msg.sender == pendingOwner, \\\"Only new owner\\\");\\n\\t\\trequire(block.timestamp >= ownershipTransferDeadline, \\\"Deadline not passed\\\");\\n\\n\\t\\temit NewOwnerAccepted(owner, msg.sender);\\n\\n\\t\\towner = pendingOwner;\\n\\t\\tpendingOwner = address(0);\\n\\t\\townershipTransferDeadline = 0;\\n\\t}\\n\\n\\tfunction revokeTransferOwnership() external onlyOwner {\\n\\t\\temit NewOwnerRevoked(msg.sender, pendingOwner);\\n\\n\\t\\tpendingOwner = address(0);\\n\\t\\townershipTransferDeadline = 0;\\n\\t}\\n}\\n\",\"keccak256\":\"0xc9c3bffe2d92f4fb4ceacc302495a004e4d3ba6e6c6add7d7311e4c0c6ffbb4d\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60a060405234801561001057600080fd5b50604051610a09380380610a0983398101604081905261002f91610128565b600280546001600160a01b0319166001600160a01b03851617905561005762093a804261016b565b6100649062093a8061018d565b608052600580546001600160a01b038481166001600160a01b0319928316811790935560008054918516919092161790556040519081527fe6c09ffe4572dc9ceaa5ddde4ae41befa655d6fdfe8052077af0970f700e942e9060200160405180910390a16040516001600160a01b03821681527fbdf37c276f641820b141429d245add2552b4118c0866e5a78638e3de5ef18d9d9060200160405180910390a15050506101b8565b80516001600160a01b038116811461012357600080fd5b919050565b60008060006060848603121561013d57600080fd5b6101468461010c565b92506101546020850161010c565b91506101626040850161010c565b90509250925092565b60008261018857634e487b7160e01b600052601260045260246000fd5b500490565b80820281158282048414176101b257634e487b7160e01b600052601160045260246000fd5b92915050565b6080516108366101d360003960006101b501526108366000f3fe608060405234801561001057600080fd5b50600436106100f55760003560e01c806378e9792511610097578063b3f0067411610066578063b3f0067414610205578063e1cebf0b14610218578063e30c39781461022b578063efdcd9741461023e57600080fd5b806378e97925146101b05780637b371107146101d75780638a0dac4a146101df5780638da5cb5b146101f257600080fd5b80635c975abb116100d35780635c975abb146101565780636cd550cd1461018b578063741bef1a146101935780637433ae7a146101a657600080fd5b806315112f11146100fa57806316c38b3c14610116578063452a93201461012b575b600080fd5b61010360045481565b6040519081526020015b60405180910390f35b61012961012436600461076e565b610251565b005b60055461013e906001600160a01b031681565b6040516001600160a01b03909116815260200161010d565b60055461017b9074010000000000000000000000000000000000000000900460ff1681565b604051901515815260200161010d565b610129610374565b60015461013e906001600160a01b031681565b6101036203f48081565b6101037f000000000000000000000000000000000000000000000000000000000000000081565b610129610424565b6101296101ed366004610797565b61054e565b60025461013e906001600160a01b031681565b60005461013e906001600160a01b031681565b610129610226366004610797565b6105f7565b60035461013e906001600160a01b031681565b61012961024c366004610797565b6106cc565b80801561026857506005546001600160a01b031633145b8061027d57506002546001600160a01b031633145b6102ce5760405162461bcd60e51b815260206004820152600c60248201527f556e617574686f72697a6564000000000000000000000000000000000000000060448201526064015b60405180910390fd5b600580548215801574010000000000000000000000000000000000000000027fffffffffffffffffffffff00ffffffffffffffffffffffffffffffffffffffff90921691909117909155610348576040517f9e87fac88ff661f02d44f95383c817fece4bce600a3dab7a54406878b965e75290600090a150565b6040517fa45f47fdea8a1efdd9029a5691c7f759c32b7c698632b563573e155625d1693390600090a150565b6002546001600160a01b031633146103bb5760405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b60448201526064016102c5565b600354604080513381526001600160a01b0390921660208301527fd6176b30539d20b54c946c7ca9dca5950b2f1090fc2bfc55cc77a4025a8a78ae910160405180910390a16003805473ffffffffffffffffffffffffffffffffffffffff191690556000600455565b6003546001600160a01b0316331461047e5760405162461bcd60e51b815260206004820152600e60248201527f4f6e6c79206e6577206f776e657200000000000000000000000000000000000060448201526064016102c5565b6004544210156104d05760405162461bcd60e51b815260206004820152601360248201527f446561646c696e65206e6f74207061737365640000000000000000000000000060448201526064016102c5565b600254604080516001600160a01b0390921682523360208301527f5cd6b24c0149d980c82592262b3a81294b39f8f6e3c004126aaf0828c787d554910160405180910390a1600380546002805473ffffffffffffffffffffffffffffffffffffffff199081166001600160a01b038416179091551690556000600455565b6002546001600160a01b031633146105955760405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b60448201526064016102c5565b6005805473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b0383169081179091556040519081527fe6c09ffe4572dc9ceaa5ddde4ae41befa655d6fdfe8052077af0970f700e942e906020015b60405180910390a150565b6002546001600160a01b0316331461063e5760405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b60448201526064016102c5565b6003805473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b0383161790556106736203f480426107c0565b6004557f4c743940588d40b308f73f5275a4e608b25c5374f40e4839fb00467e238acfac33826106a66203f480426107c0565b604080516001600160a01b039485168152939092166020840152908201526060016105ec565b6002546001600160a01b031633146107135760405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b60448201526064016102c5565b6000805473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b0383169081179091556040519081527fbdf37c276f641820b141429d245add2552b4118c0866e5a78638e3de5ef18d9d906020016105ec565b60006020828403121561078057600080fd5b8135801515811461079057600080fd5b9392505050565b6000602082840312156107a957600080fd5b81356001600160a01b038116811461079057600080fd5b808201808211156107fa577f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b9291505056fea2646970667358221220d7b934896d720691fddfa1794603f7933c11b20c2c7283177d4bd07135d4ec8c64736f6c63430008130033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100f55760003560e01c806378e9792511610097578063b3f0067411610066578063b3f0067414610205578063e1cebf0b14610218578063e30c39781461022b578063efdcd9741461023e57600080fd5b806378e97925146101b05780637b371107146101d75780638a0dac4a146101df5780638da5cb5b146101f257600080fd5b80635c975abb116100d35780635c975abb146101565780636cd550cd1461018b578063741bef1a146101935780637433ae7a146101a657600080fd5b806315112f11146100fa57806316c38b3c14610116578063452a93201461012b575b600080fd5b61010360045481565b6040519081526020015b60405180910390f35b61012961012436600461076e565b610251565b005b60055461013e906001600160a01b031681565b6040516001600160a01b03909116815260200161010d565b60055461017b9074010000000000000000000000000000000000000000900460ff1681565b604051901515815260200161010d565b610129610374565b60015461013e906001600160a01b031681565b6101036203f48081565b6101037f000000000000000000000000000000000000000000000000000000000000000081565b610129610424565b6101296101ed366004610797565b61054e565b60025461013e906001600160a01b031681565b60005461013e906001600160a01b031681565b610129610226366004610797565b6105f7565b60035461013e906001600160a01b031681565b61012961024c366004610797565b6106cc565b80801561026857506005546001600160a01b031633145b8061027d57506002546001600160a01b031633145b6102ce5760405162461bcd60e51b815260206004820152600c60248201527f556e617574686f72697a6564000000000000000000000000000000000000000060448201526064015b60405180910390fd5b600580548215801574010000000000000000000000000000000000000000027fffffffffffffffffffffff00ffffffffffffffffffffffffffffffffffffffff90921691909117909155610348576040517f9e87fac88ff661f02d44f95383c817fece4bce600a3dab7a54406878b965e75290600090a150565b6040517fa45f47fdea8a1efdd9029a5691c7f759c32b7c698632b563573e155625d1693390600090a150565b6002546001600160a01b031633146103bb5760405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b60448201526064016102c5565b600354604080513381526001600160a01b0390921660208301527fd6176b30539d20b54c946c7ca9dca5950b2f1090fc2bfc55cc77a4025a8a78ae910160405180910390a16003805473ffffffffffffffffffffffffffffffffffffffff191690556000600455565b6003546001600160a01b0316331461047e5760405162461bcd60e51b815260206004820152600e60248201527f4f6e6c79206e6577206f776e657200000000000000000000000000000000000060448201526064016102c5565b6004544210156104d05760405162461bcd60e51b815260206004820152601360248201527f446561646c696e65206e6f74207061737365640000000000000000000000000060448201526064016102c5565b600254604080516001600160a01b0390921682523360208301527f5cd6b24c0149d980c82592262b3a81294b39f8f6e3c004126aaf0828c787d554910160405180910390a1600380546002805473ffffffffffffffffffffffffffffffffffffffff199081166001600160a01b038416179091551690556000600455565b6002546001600160a01b031633146105955760405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b60448201526064016102c5565b6005805473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b0383169081179091556040519081527fe6c09ffe4572dc9ceaa5ddde4ae41befa655d6fdfe8052077af0970f700e942e906020015b60405180910390a150565b6002546001600160a01b0316331461063e5760405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b60448201526064016102c5565b6003805473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b0383161790556106736203f480426107c0565b6004557f4c743940588d40b308f73f5275a4e608b25c5374f40e4839fb00467e238acfac33826106a66203f480426107c0565b604080516001600160a01b039485168152939092166020840152908201526060016105ec565b6002546001600160a01b031633146107135760405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b60448201526064016102c5565b6000805473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b0383169081179091556040519081527fbdf37c276f641820b141429d245add2552b4118c0866e5a78638e3de5ef18d9d906020016105ec565b60006020828403121561078057600080fd5b8135801515811461079057600080fd5b9392505050565b6000602082840312156107a957600080fd5b81356001600160a01b038116811461079057600080fd5b808201808211156107fa577f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b9291505056fea2646970667358221220d7b934896d720691fddfa1794603f7933c11b20c2c7283177d4bd07135d4ec8c64736f6c63430008130033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "setFeeReceiver(address)": {
+        "params": {
+          "_feeReceiver": "Address of the fee's recipient"
+        }
+      },
+      "setGuardian(address)": {
+        "params": {
+          "_guardian": "Guardian address"
+        }
+      },
+      "setPaused(bool)": {
+        "params": {
+          "_paused": "If true the protocol is paused"
+        }
+      }
+    },
+    "title": "Zebra ZebraCore",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "setFeeReceiver(address)": {
+        "notice": "Set the receiver of all fees across the protocol"
+      },
+      "setGuardian(address)": {
+        "notice": "Set the guardian address The guardian can execute some emergency actions"
+      },
+      "setPaused(bool)": {
+        "notice": "Sets the global pause state of the protocol         Pausing is used to mitigate risks in exceptional circumstances         Functionalities affected by pausing are:         - New borrowing is not possible         - New collateral deposits are not possible         - New stability pool deposits are not possible"
+      }
+    },
+    "notice": "Single source of truth for system-wide values and contract ownership. Ownership of this contract should be the Zebra DAO via `AdminVoting`. Other ownable Zebra contracts inherit their ownership from this contract using `ZebraOwnable`.",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 23329,
+        "contract": "contracts/core/ZebraCore.sol:ZebraCore",
+        "label": "feeReceiver",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 23331,
+        "contract": "contracts/core/ZebraCore.sol:ZebraCore",
+        "label": "priceFeed",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      },
+      {
+        "astId": 23333,
+        "contract": "contracts/core/ZebraCore.sol:ZebraCore",
+        "label": "owner",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_address"
+      },
+      {
+        "astId": 23335,
+        "contract": "contracts/core/ZebraCore.sol:ZebraCore",
+        "label": "pendingOwner",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_address"
+      },
+      {
+        "astId": 23337,
+        "contract": "contracts/core/ZebraCore.sol:ZebraCore",
+        "label": "ownershipTransferDeadline",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 23339,
+        "contract": "contracts/core/ZebraCore.sol:ZebraCore",
+        "label": "guardian",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_address"
+      },
+      {
+        "astId": 23346,
+        "contract": "contracts/core/ZebraCore.sol:ZebraCore",
+        "label": "paused",
+        "offset": 20,
+        "slot": "5",
+        "type": "t_bool"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
