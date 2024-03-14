@@ -122,14 +122,7 @@ contract TroveManager is ITroveManager, InterestDebtPool, ZebraBase, ZebraOwnabl
 		_;
 	}
 
-	constructor(
-		IZebraCore _zebraCore,
-		address _gasPoolAddress,
-		address _zebraUSDAddress,
-		address _borrowerOperationsAddress,
-		address _liquidationManager,
-		uint256 _gasCompensation
-	) InterestDebtPool(_zebraUSDAddress) ZebraOwnable(_zebraCore) ZebraBase(_gasCompensation) SystemStart(_zebraCore) {
+	constructor(IZebraCore _zebraCore, address _gasPoolAddress, address _zebraUSDAddress, address _borrowerOperationsAddress, address _liquidationManager, uint256 _gasCompensation) InterestDebtPool(_zebraUSDAddress) ZebraOwnable(_zebraCore) ZebraBase(_gasCompensation) SystemStart(_zebraCore) {
 		gasPoolAddress = _gasPoolAddress;
 		borrowerOperationsAddress = _borrowerOperationsAddress;
 		liquidationManager = _liquidationManager;

@@ -15,7 +15,9 @@ import { resolve } from 'path'
 const dotenvConfigPath: string = process.env.DOTENV_CONFIG_PATH || './.env'
 dotenvConfig({ path: resolve(__dirname, dotenvConfigPath) })
 
-import './tasks'
+if (process.env.NODE_ENV != 'build') {
+	require('./tasks')
+}
 
 const accounts = {
 	mnemonic: process.env.MNEMONIC || 'test test test test test test test test test test test test',

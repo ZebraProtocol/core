@@ -11,7 +11,7 @@ contract ZebraBase is IZebraBase {
 	uint256 public constant override DECIMAL_PRECISION = 1e18;
 
 	// Critical system collateral ratio. If the system's total collateral ratio (TCR) falls below the CCR, Recovery Mode is triggered.
-	uint256 public constant override CCR = 2000000000000000000; // 200%
+	uint256 public constant override CCR = 1700000000000000000; // 170%%
 
 	// Amount of debt to be locked in gas pool on opening troves
 	uint256 public immutable override DEBT_GAS_COMPENSATION;
