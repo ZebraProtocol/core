@@ -1,0 +1,42 @@
+{
+  "address": "0xb369E5B4D23a9d8f1b91A78418329f5660a08C2d",
+  "abi": [],
+  "transactionHash": "0x2a05722a53db40521ee5e8353cdc648a328863b4f81fc59aed2a5966190de2f8",
+  "receipt": {
+    "to": null,
+    "from": "0xF1658C608708172655A8e70a1624c29F956Ee63D",
+    "contractAddress": "0xb369E5B4D23a9d8f1b91A78418329f5660a08C2d",
+    "transactionIndex": 66,
+    "gasUsed": "67066",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x09fbc6e14c98dac4029ccda9856b11987d926127eca911bacb9979a56f090152",
+    "transactionHash": "0x2a05722a53db40521ee5e8353cdc648a328863b4f81fc59aed2a5966190de2f8",
+    "logs": [],
+    "blockNumber": 2169993,
+    "cumulativeGasUsed": "10465820",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "b91301f1a84b6c2e358640cd7d231682",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"title\":\"Zebra Gas Pool\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"Placeholder contract for tokens to be used as gas compensation See https://github.com/liquity/dev#gas-compensation\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/core/GasPool.sol\":\"GasPool\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":2000},\"remappings\":[]},\"sources\":{\"contracts/core/GasPool.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity 0.8.19;\\n\\n/**\\n    @title Zebra Gas Pool\\n    @notice Placeholder contract for tokens to be used as gas compensation\\n            See https://github.com/liquity/dev#gas-compensation\\n */\\ncontract GasPool {\\n\\t// do nothing, as the ZebraCore contracts have permission to send to and burn from this address\\n}\\n\",\"keccak256\":\"0x378cf4ba0591a1bf31588b429757d5abf1b2d30c85fa5642c4ef6fd34ee628e3\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122061181c61aa4983fff35b943a8b985d3fe6650218eb6df44b26812410f53d7bed64736f6c63430008130033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122061181c61aa4983fff35b943a8b985d3fe6650218eb6df44b26812410f53d7bed64736f6c63430008130033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "title": "Zebra Gas Pool",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "notice": "Placeholder contract for tokens to be used as gas compensation See https://github.com/liquity/dev#gas-compensation",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
