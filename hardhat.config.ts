@@ -130,6 +130,10 @@ const config = {
 		'zeta-mainnet': {
 			url: 'https://zetachain-evm.blockpi.network/v1/rpc/public',
 			accounts
+		},
+		'zeta-mainnet-pro': {
+			url: 'https://zetachain-evm.blockpi.network/v1/rpc/public',
+			accounts
 		}
 	},
 	etherscan: {
