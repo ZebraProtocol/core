@@ -138,13 +138,24 @@ const config = {
 	},
 	etherscan: {
 		apiKey: {
+			'zeta-mainnet-pro': process.env.APIKEY_MAINNET!,
 			mainnet: process.env.APIKEY_MAINNET!,
 			bsc: process.env.APIKEY_BSC!,
 			polygon: process.env.APIKEY_POLYGON!,
 			goerli: process.env.APIKEY_GOERLI!,
 			bscTestnet: process.env.APIKEY_CHAPEL!,
 			polygonMumbai: process.env.APIKEY_MUMBAI!
-		}
+		},
+		customChains: [
+			{
+				network: 'zeta-mainnet-pro',
+				chainId: 7000,
+				urls: {
+					apiURL: 'https://zetachain.blockscout.com/api',
+					browserURL: 'https://zetachain.blockscout.com/'
+				}
+			}
+		]
 	},
 	paths: {
 		deploy: 'deploy',
