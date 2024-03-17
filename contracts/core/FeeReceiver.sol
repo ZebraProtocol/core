@@ -3,9 +3,14 @@
 pragma solidity 0.8.19;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "../dependencies/ZebraOwnableUpgradeable.sol";
+import "../proxy/AdminWrapper.sol";
 
-contract FeeReceiver is ZebraOwnableUpgradeable {
+contract FeeReceiver is ZebraOwnableUpgradeable, AdminWrapper {
 	function initialize(IZebraCore _zebraCore) external initializer {
+		__InitCore(_zebraCore);
+	}
+
+	function setCore(IZebraCore _zebraCore) external onlyAdmin {
 		__InitCore(_zebraCore);
 	}
 
