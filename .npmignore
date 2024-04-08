@@ -1,9 +1,12 @@
 test/
 hbs/
+contracts/
 artifacts/
 cache/
 deploy/
 tasks/
-types/**.ts
-!types/**.d.ts
+deployments/
 .env
+!types/**/test
+!types/**/contracts
+!contracts/test
