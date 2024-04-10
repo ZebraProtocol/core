@@ -520,7 +520,7 @@ contract TroveManager is ITroveManager, InterestDebtPool, ZebraBase, ZebraOwnabl
 			totals.totalCollateralDrawn = totals.totalCollateralDrawn + singleRedemption.collateralLot;
 			totals.totalInterest = totals.totalInterest + singleRedemption.interestLot;
 
-			totals.remainingDebt = totals.remainingDebt - singleRedemption.debtLot;
+			totals.remainingDebt = totals.remainingDebt - singleRedemption.debtLot - singleRedemption.interestLot;
 			currentBorrower = nextUserToCheck;
 		}
 		require(totals.totalCollateralDrawn > 0, "Unable to redeem any amount");
@@ -565,8 +565,7 @@ contract TroveManager is ITroveManager, InterestDebtPool, ZebraBase, ZebraOwnabl
 		}
 		singleRedemption.interestLot = interest;
 		// Determine the remaining amount (lot) to be redeemed, capped by the entire debt of the Trove minus the liquidation reserve
-		singleRedemption.debtLot = ZebraMath._min(_maxDebtAmount - singleRedemption.interestLot, t.debt - DEBT_GAS_COMPENSATION);
-
+		singleRedemption.debtLot = ZebraMath._min(_maxDebtAmount - interest, t.debt - DEBT_GAS_COMPENSATION);
 		// Get the CollateralLot of equivalent value in USD
 		singleRedemption.collateralLot = ((singleRedemption.debtLot + singleRedemption.interestLot) * DECIMAL_PRECISION) / _price;
 		// Decrease the debt and collateral of the current Trove according to the debt lot and corresponding collateral to send
