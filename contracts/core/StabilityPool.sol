@@ -512,7 +512,7 @@ contract StabilityPool is IStabilityPool, ZebraOwnable {
 		uint256 initialDeposit = accountDeposits[_depositor];
 
 		if (totalDebt == 0 || initialDeposit == 0) {
-			return 0;
+			return storedPendingReward[_depositor];
 		}
 		uint256 esZebraNumerator = (communityIssuance.pendingReward() * DECIMAL_PRECISION) + lastEsZebraError;
 		uint256 esZebraPerUnitStaked = esZebraNumerator / totalDebt;
