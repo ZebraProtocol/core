@@ -531,7 +531,7 @@ contract StabilityPool is IStabilityPool, ZebraOwnable {
 			secondPortion = (epochToScaleToG[epochSnapshot][scaleSnapshot + 1] + marginalEsZebraGain) / SCALE_FACTOR;
 		}
 
-		return (initialDeposit * (firstPortion + secondPortion)) / snapshots.P / DECIMAL_PRECISION;
+		return storedPendingReward[_depositor] + (initialDeposit * (firstPortion + secondPortion)) / snapshots.P / DECIMAL_PRECISION;
 	}
 
 	function _claimableReward(address _depositor) private view returns (uint256) {
