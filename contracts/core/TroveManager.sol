@@ -520,7 +520,7 @@ contract TroveManager is ITroveManager, InterestDebtPool, ZebraBase, ZebraOwnabl
 			totals.totalCollateralDrawn = totals.totalCollateralDrawn + singleRedemption.collateralLot;
 			totals.totalInterest = totals.totalInterest + singleRedemption.interestLot;
 
-			totals.remainingDebt = totals.remainingDebt - singleRedemption.debtLot;
+			totals.remainingDebt = totals.remainingDebt - singleRedemption.debtLot - singleRedemption.interestLot;
 			currentBorrower = nextUserToCheck;
 		}
 		require(totals.totalCollateralDrawn > 0, "Unable to redeem any amount");
