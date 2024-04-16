@@ -32,6 +32,7 @@ contract TroveState {
 		uint256 troveStatus;
 		uint256 surplusBalances;
 		uint256 spStaked;
+		uint256 mySpStaked;
 		uint256[] spCollGains;
 		uint256 spEsZebraGains;
 	}
@@ -42,9 +43,9 @@ contract TroveState {
 	}
 
 	function getState(ITroveManager tm, address _borrower) public returns (State memory state) {
-		try tm.fetchPrice() returns(uint256 price) {
+		try tm.fetchPrice() returns (uint256 price) {
 			state.price = price;
-		} catch(bytes memory) {
+		} catch (bytes memory) {
 			revert("the oracle is down");
 		}
 		(state.coll, state.debt) = tm.getTroveCollAndDebt(_borrower);
@@ -55,7 +56,7 @@ contract TroveState {
 		state.TCR = bo.getTCR();
 		state.minNetDebt = bo.minNetDebt();
 		state.gasCompensation = IZebraBase(address(bo)).DEBT_GAS_COMPENSATION();
-		state.ICR = tm.getCurrentICR(_borrower,state.price);
+		state.ICR = tm.getCurrentICR(_borrower, state.price);
 		state.entireSystemDebt = tm.getEntireSystemDebt();
 		state.entireSystemColl = tm.getEntireSystemColl();
 		state.redemptionBootstrap = tm.systemDeploymentTime() + tm.BOOTSTRAP_PERIOD();
@@ -64,6 +65,7 @@ contract TroveState {
 		state.troveStatus = tm.getTroveStatus(_borrower);
 		state.surplusBalances = tm.surplusBalances(_borrower);
 		state.spStaked = sp.getTotalZebraUSDDeposits();
+		state.mySpStaked = sp.getCompoundedDeposit(_borrower);
 		state.spCollGains = sp.getDepositorCollateralGain(_borrower);
 		state.spEsZebraGains = sp.claimableReward(_borrower);
 	}
