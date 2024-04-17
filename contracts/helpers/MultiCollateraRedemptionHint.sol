@@ -137,26 +137,18 @@ contract MultiCollateraRedemptionHint is ZebraBase {
 
 	function getPrev(MultiTroveGetter.CombinedTroveData[] memory allTroves, uint256 i) internal pure returns (address prev) {
 		if (i != 0) {
-			while (i != 0) {
+			while (i != 0 || prev == address(0)) {
 				prev = allTroves[i - 1].owner;
-				if (prev != address(0)) {
-					break;
-				} else {
-					i--;
-				}
+				i--;
 			}
 		}
 	}
 
-	function getNext(MultiTroveGetter.CombinedTroveData[] memory allTroves, uint256 i) internal pure returns (address prev) {
+	function getNext(MultiTroveGetter.CombinedTroveData[] memory allTroves, uint256 i) internal pure returns (address next) {
 		if (i != allTroves.length - 1) {
-			while (i != allTroves.length - 1) {
-				prev = allTroves[i + 1].owner;
-				if (prev != address(0)) {
-					break;
-				} else {
-					i++;
-				}
+			while (i != allTroves.length - 1 || next == address(0)) {
+				next = allTroves[i + 1].owner;
+				i++;
 			}
 		}
 	}
