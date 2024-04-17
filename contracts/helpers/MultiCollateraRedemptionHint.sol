@@ -7,6 +7,7 @@ import "../interfaces/ITroveManager.sol";
 import "../dependencies/ZebraBase.sol";
 import "../dependencies/ZebraMath.sol";
 import "./MultiTroveGetter.sol";
+import "@openzeppelin/contracts/utils/structs/EnumerableMap.sol";
 
 contract MultiCollateraRedemptionHint is ZebraBase {
 	IBorrowerOperations public immutable borrowerOperations;
@@ -79,6 +80,7 @@ contract MultiCollateraRedemptionHint is ZebraBase {
 		cache.minNetDebt = borrowerOperations.minNetDebt();
 		redemption.remains = estimation.redeemAmount;
 		MultiTroveGetter.CombinedTroveData[] memory cacheAllTroves = new MultiTroveGetter.CombinedTroveData[](allTroves.length);
+
 		for (uint256 i = 0; i < allTroves.length; i++) {
 			cacheAllTroves[i] = allTroves[i];
 		}
@@ -123,18 +125,40 @@ contract MultiCollateraRedemptionHint is ZebraBase {
 		for (uint256 i = 0; i < allTroves.length; i++) {
 			MultiTroveGetter.CombinedTroveData memory trove = allTroves[i];
 			if (cache.partialRedemptionHint == trove.owner && redemption.partialNICR != 0) {
-				if (i != 0) {
-					redemption.upperHint = allTroves[i - 1].owner;
-				}
-				if (i != allTroves.length - 1) {
-					redemption.lowerHint = allTroves[i + 1].owner;
-				}
+				redemption.upperHint = getPrev(allTroves, i);
+				redemption.lowerHint = getNext(allTroves, i);
 			}
 		}
 		uint256 feeDecay = estimation.troveManager.getRedemptionRateWithDecay();
 		uint256 totalDebt = estimation.troveManager.getGlobalSystemDebt();
 		redemption.maxFee = feeDecay + ((redemption.collWithdrawn * cache.price) / totalDebt / 2);
 		return redemption;
+	}
+
+	function getPrev(MultiTroveGetter.CombinedTroveData[] memory allTroves, uint256 i) internal pure returns (address prev) {
+		if (i != 0) {
+			while (i != 0) {
+				prev = allTroves[i - 1].owner;
+				if (prev != address(0)) {
+					break;
+				} else {
+					i--;
+				}
+			}
+		}
+	}
+
+	function getNext(MultiTroveGetter.CombinedTroveData[] memory allTroves, uint256 i) internal pure returns (address prev) {
+		if (i != allTroves.length - 1) {
+			while (i != allTroves.length - 1) {
+				prev = allTroves[i + 1].owner;
+				if (prev != address(0)) {
+					break;
+				} else {
+					i++;
+				}
+			}
+		}
 	}
 
 	function _decrease(uint256 remains, uint256 maxRedemption, uint256 interest) internal pure returns (uint256) {
