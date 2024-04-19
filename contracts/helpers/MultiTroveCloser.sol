@@ -9,11 +9,8 @@ import "../interfaces/IIzumiQuoter.sol";
 import "../interfaces/IBorrowerOperations.sol";
 import "../interfaces/ITroveManager.sol";
 import "../dependencies/ZebraOwnable.sol";
-import "@openzeppelin/contracts/utils/structs/EnumerableMap.sol";
 
 contract MultiTroveCloser is ZebraOwnable {
-	using EnumerableMap for EnumerableMap.UintToAddressMap;
-	EnumerableMap.UintToAddressMap internal collateralTokens;
 	IZebraUSD public immutable zebraUSD;
 	IWZeta public immutable wzeta;
 	IIzumiSwap public immutable swap;
@@ -27,22 +24,6 @@ contract MultiTroveCloser is ZebraOwnable {
 		quoter = _quoter;
 		bo = _bo;
 		wzeta.approve(address(swap), type(uint256).max);
-	}
-
-	function addCollateralTokens(IERC20 token) external onlyOwner {
-		collateralTokens.set(uint256(bytes32(bytes20(address(token)))), address(token));
-	}
-
-	function removeCollateralTokens(IERC20 token) external onlyOwner {
-		collateralTokens.remove(uint256(bytes32(bytes20(address(token)))));
-	}
-
-	function collateralTokenLength() public view returns (uint256) {
-		return collateralTokens.length();
-	}
-
-	function collateralTokenAt(uint256 i) public view returns (address token) {
-		(, token) = collateralTokens.at(i);
 	}
 
 	function estimateClose(ITroveManager tm, bytes memory path, address borrower) external returns (uint256 balance, uint128 desire, uint256 cost) {
@@ -77,13 +58,10 @@ contract MultiTroveCloser is ZebraOwnable {
 		if (remain > 0) {
 			zebraUSD.transfer(borrower, remain);
 		}
-
-		for (uint256 i = 0; i < collateralTokenLength(); i++) {
-			address token = collateralTokenAt(i);
-			uint256 tokenBalance = IERC20(token).balanceOf(address(this));
-			if (tokenBalance > 0) {
-				IERC20(token).transfer(borrower, tokenBalance);
-			}
+		IERC20 collateralToken = tm.collateralToken();
+		uint256 tokenBalance = collateralToken.balanceOf(address(this));
+		if (tokenBalance > 0) {
+			collateralToken.transfer(borrower, tokenBalance);
 		}
 	}
 
